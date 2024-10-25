@@ -25,24 +25,22 @@ def gradient_descent(X, y, m, c, learning_rate):
     c -= learning_rate * dc
     return m, c
 
-# Initialize slope (m) and intercept (c)
+# Initialize slope (m) and intercept (c) randomly
 m, c = np.random.rand(), np.random.rand()
-learning_rate = 0.0001  # Decrease the learning rate for finer updates
-epochs = 1000  # Increase the number of epochs for better convergence
+learning_rate = 0.0001  # Set learning rate
+epochs = 10  # Set number of epochs
 
 # Training loop
-errors = []
-
 for epoch in range(epochs):
     # Predict with current slope and intercept
     y_pred = m * X + c
-    # Calculate MSE and track it
+    # Calculate Mean Squared Error (MSE)
     mse = mean_squared_error(y, y_pred)
-    errors.append(mse)
+    print(f"Epoch {epoch + 1}: MSE = {mse:.4f}")
     # Update weights using gradient descent
     m, c = gradient_descent(X, y, m, c, learning_rate)
 
-# Plotting the line of best fit
+# Plotting the line of best fit after final epoch
 plt.figure(figsize=(10, 6))
 plt.scatter(X, y, color="blue", label="Data points")
 plt.plot(X, m * X + c, color="red", label="Line of Best Fit")
@@ -52,6 +50,6 @@ plt.legend()
 plt.title("Linear Regression - Line of Best Fit")
 plt.show()
 
-# Predict for an office size of 100 sq. ft.
+# Predict the office price for size 100 sq. ft.
 predicted_price = m * 100 + c
 print(f"Predicted price for a 100 sq. ft. office: {predicted_price:.2f}")
